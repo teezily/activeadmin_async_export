@@ -14,12 +14,12 @@ module ActiveAdmin
       @from_email_address || 'admin@example.com'
     end
 
-    def self.controller_namespace=(namespace)
-      @controller_namespace = namespace
+    def self.admin_controller_namespace=(namespace)
+      @admin_controller_namespace = namespace
     end
 
-    def self.controller_namespace
-      @controller_namespace || 'Admin'
+    def self.admin_controller_namespace
+      @admin_controller_namespace || 'Admin'
     end
   end
 end

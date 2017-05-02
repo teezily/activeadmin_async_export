@@ -5,7 +5,7 @@ module ActiveAdmin
 
       def csv_export(admin_email, model_name, params_json)
         params = JSON.parse(params_json)
-        controller = Kernel::qualified_const_get("#{ActiveAdmin::AsyncExport.controller_namespace}::#{model_name}sController").new
+        controller = Kernel::qualified_const_get("#{ActiveAdmin::AsyncExport.admin_controller_namespace}::#{model_name}sController").new
         config = controller.send(:active_admin_config)
         path = controller.send(:active_admin_template, 'index.csv')
         csv_filename = controller.send(:csv_filename)

@@ -4,7 +4,7 @@ module ActiveAdmin
       add_template_helper MethodOrProcHelper
 
       def csv_export(admin_email, model_name)
-        controller = Kernel::qualified_const_get("Admins::#{model_name}sController").new
+        controller = Kernel::qualified_const_get("#{ActiveAdmin::AsyncExport.controller_namespace}::#{model_name}sController").new
         config = controller.send(:active_admin_config)
         path = controller.send(:active_admin_template, 'index.csv')
         csv_filename = controller.send(:csv_filename)

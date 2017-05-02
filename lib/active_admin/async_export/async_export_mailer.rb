@@ -3,12 +3,13 @@ module ActiveAdmin
     class AsyncExportMailer < ActionMailer::Base
       add_template_helper MethodOrProcHelper
 
-      def csv_export(admin_email, model_name)
+      def csv_export(admin_email, model_name, params_json)
+        params = JSON.parse(params_json)
         controller = Kernel::qualified_const_get("#{ActiveAdmin::AsyncExport.controller_namespace}::#{model_name}sController").new
         config = controller.send(:active_admin_config)
         path = controller.send(:active_admin_template, 'index.csv')
         csv_filename = controller.send(:csv_filename)
-        collection = controller.send(:scoped_collection)
+        collection = controller.send(:scoped_collection).send(params[:scope] || params['scope'] || 'all')
         app = ActiveAdmin.application
 
         csv = render_to_string(file: path,
